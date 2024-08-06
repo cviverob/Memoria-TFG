@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{subcaption} % Para usar subfiguras, etc.
+\usepackage[spanish]{babel} % Para que la fecha sea en español
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref} % Para crear hipervínculos
+\usepackage{wrapfig} % Texto al lado de una figura
+\graphicspath{{./images/}}
+
+\title{Pruebas de latex}
+\author{Carlos Vivero Barrera}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Cosas varias}
+    Nota de página\footnote{Heyyy}
+
+    Palabras en \textbf{negrita}, \underline{subrayadas}, y en \textit{cursiva}
+    \begin{center}
+        Texto centrado
+    \end{center}
+
+    \large{Texto grande} vs \footnotesize{texto pequeño}
+    \newpage
+
+\section{Tablas}
+    \hyperref[tab:Mi tabla]{Link a la tabla}
+    \begin{table}[b]
+        \centering
+        \begin{tabular}{|l|c|c|c|r}
+             hol & hola & holaa & holaaa & holaaaa \\
+             \hline
+             0 & 1 & 2 & 3 & 4 \\
+             4 & 3 & 2 & 1 & 0 \\
+             \hline
+        \end{tabular}
+        \caption{Tabla de 3 x 5}
+        \label{tab:Mi tabla}
+    \end{table}
+    \newpage
+
+\section{Figuras}
+    \subsection{Figura normal}
+        \begin{figure}[ht] % La h hace que se coloque donde se llama, t para top y b para botom
+            \centering
+            \includegraphics[scale=0.5]{./ElmoCines.png} % Poniendo solo esto también se muestra la imagen
+            \caption{Esto es una figura de Elmo cines}
+            \label{fig:Elmo cines}
+        \end{figure}
+    
+    \subsection{Subfiguras}
+        \begin{figure}[ht]
+            \centering
+            \begin{subfigure}{0.45\textwidth}
+                \centering
+                \includegraphics[scale=0.5]{ElmoA.png}
+                \caption{Esto es una figura de El}
+                \label{fig:El}
+            \end{subfigure}
+            \begin{subfigure}{0.45\textwidth}
+                \centering
+                \includegraphics[scale=0.5]{ElmoB.png}
+                \caption{Esto es una figura de mo}
+                \label{fig:mo}
+            \end{subfigure} \\
+            \begin{subfigure}{0.45\textwidth}
+                \centering
+                \includegraphics[scale=0.5]{Elmo.png}
+                \caption{Esto es una figura de Elmo}
+                \label{fig:Elmo}
+            \end{subfigure}
+            %\caption{Esto son subfiguras}
+            \label{fig:El-mo}
+        \end{figure}
+    
+    \subsection{Texto al lado de figuras}
+        \begin{wrapfigure}[6]{l}{0.3\linewidth}
+            \vspace{-13pt}
+            \includegraphics[scale=0.1]{PlantillaHorario.png}
+        \end{wrapfigure}
+        Esta es la plantilla de horario que utilizo todos los años con el paint
+        para guardarme el nuevo horario en el móvil. Es simple, fácil, sencilla,
+        maravillosa, espléndida, y muchísimos adjetivos más cuyo significado sea 
+        algo bonito. Si estás interesado en tenerla, puedo ofrecerte una oferta
+        por ella de 2.500€, nada mal en mi opinión por semejante obra de arte. A 
+        todo esto, si te fijas la wrapfig ha cuadrado este texto perfectamente. 
+        Una locura en mi humilde opinión.
+
+
+\end{document}
