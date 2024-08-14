@@ -7,12 +7,21 @@
 \usepackage{multirow} % Permite juntar dos celas verticales de una tala
 \usepackage{colortbl} % Permite colorear tablas
 \usepackage[table]{xcolor} % Permite colorear una tabla de forma alterna
+\usepackage{lipsum} % Permite usar /lipsum para crear un texto largo
+\usepackage[left=25mm, right=25mm, top=35mm, bottom=30mm, headheight=35mm]{geometry} % Permite definir los márgenes
+\usepackage{fancyhdr} % Permite usar encabezados
 
 % Definición de colores
 \definecolor{celeste}{RGB}{0, 255, 255}
 \definecolor{gris}{RGB}{222, 222, 222} % Idóneo para alternar en las tablas
 
 \graphicspath{{./images/}}
+
+% Encabezado
+\pagestyle{fancy}
+\lhead{\includegraphics[width=0.12\textwidth]{logo.jpg}}
+\chead{TFG Votaciones}
+\renewcommand{\headrulewidth}{2pt}
 
 \title{Pruebas de latex}
 \author{Carlos Vivero Barrera}
@@ -95,8 +104,6 @@
         \end{subtable}
         \caption{Tablas de colores}
     \end{table}
-    % Tabla coloreada de forma alterna
-    
     \newpage
 
 \section{Figuras}
@@ -146,6 +153,9 @@
         por ella de 2.500€, nada mal en mi opinión por semejante obra de arte. A 
         todo esto, si te fijas la wrapfig ha cuadrado este texto perfectamente. 
         Una locura en mi humilde opinión.
+    \newpage
 
+\section{Lipsum}
+\lipsum[1-10]
 
 \end{document}
