@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.7.31)  16 SEP 2024 09:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.7.31)  16 SEP 2024 10:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -389,13 +389,25 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (c:/Users\carlo\OneDrive\Escritorio\Memoria-TFG\out\memoria.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 3.
 )
 \tf@toc=\write4
 \openout4 = `memoria.toc'.
 
  [1
 
-{C:/Users/carlo/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (c:/Users\carlo\OneDrive\Escritorio\Memoria-TFG\out\memoria.aux
+{C:/Users/carlo/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+<./images/logo.jpg, id=24, 536.75531pt x 540.51938pt>
+File: ./images/logo.jpg Graphic file (type jpg)
+<use ./images/logo.jpg>
+Package pdftex.def Info: ./images/logo.jpg  used on input line 50.
+(pdftex.def)             Requested size: 56.64143pt x 57.0325pt.
+LaTeX Info: Redefining \. on input line 50.
+LaTeX Info: Redefining \% on input line 50.
+ [2 <./images/logo.jpg>] (c:/Users\carlo\OneDrive\Escritorio\Memoria-TFG\out\memoria.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -404,20 +416,20 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `memoria.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 2C1E04C64DDFE493C214EFCACB063ACD;337.
  ) 
 Here is how much of TeX's memory you used:
- 13083 strings out of 474485
- 217583 string characters out of 5743734
- 1927542 words of memory out of 5000000
- 35209 multiletter control sequences out of 15000+600000
- 561709 words of font info for 48 fonts, out of 8000000 for 9000
+ 13118 strings out of 474485
+ 218088 string characters out of 5743734
+ 1929542 words of memory out of 5000000
+ 35239 multiletter control sequences out of 15000+600000
+ 562677 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,8n,93p,393b,456s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on c:/Users\carlo\OneDrive\Escritorio\Memoria-TFG\out\memoria.pdf (1 page, 42154 bytes).
+ 79i,15n,93p,393b,457s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/carlo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl10.pfb>
+Output written on c:/Users\carlo\OneDrive\Escritorio\Memoria-TFG\out\memoria.pdf (2 pages, 262926 bytes).
 PDF statistics:
- 32 PDF objects out of 1000 (max. 8388607)
- 3 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 58 PDF objects out of 1000 (max. 8388607)
+ 6 named destinations out of 1000 (max. 500000)
+ 22 words of extra memory for PDF output out of 10000 (max. 10000000)
 
