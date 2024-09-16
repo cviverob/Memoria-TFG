@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{subcaption} % Para usar subfiguras, etc.
+\usepackage[spanish]{babel} % Para que la fecha sea en español
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref} % Para crear hipervínculos
+\usepackage{wrapfig} % Texto al lado de una figura
+\usepackage{multirow} % Permite juntar dos celas verticales de una tala
+\usepackage{colortbl} % Permite colorear tablas
+\usepackage[table]{xcolor} % Permite colorear una tabla de forma alterna
+\usepackage{lipsum} % Permite usar /lipsum para crear un texto largo
+\usepackage[left=25mm, right=25mm, top=35mm, bottom=30mm, headheight=35mm]{geometry} % Permite definir los márgenes
+\usepackage{fancyhdr} % Permite usar encabezados
+
+% Definición de colores
+\definecolor{celeste}{RGB}{0, 255, 255}
+\definecolor{gris}{RGB}{222, 222, 222} % Idóneo para alternar en las tablas
+
+\graphicspath{{./images/}}
+
+% Encabezado
+\pagestyle{fancy}
+\lhead{\includegraphics[width=0.12\textwidth]{logo.jpg}}
+\chead{TFG Votaciones}
+\renewcommand{\headrulewidth}{2pt}
+
+\title{Votaciones}
+\author{El trío calavera}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\end{document}
