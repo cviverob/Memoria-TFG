@@ -36,14 +36,22 @@
 \section{Requisitos del programa}
 \subsection{Seguridad ante ataques}
 \begin{itemize}
-    \item Código cerrado para dificultar el proceso a los atacantes, de tal manera que 
-    nosotros controlamos todo el sistema de votación.
-    \item Sistema de autenticación criptográfica para impedir múltiples votos por parte 
-    de una persona y que un usuario externo pueda votar.
+    \item Código cerrado para dificultar el proceso a los atacantes, ya que no vamos a
+    contar con hackers blancos que busquen vulnerabilidades para solventarlas.
+    \item Sistema de autenticación criptográfica robusta para impedir múltiples votos 
+    por parte de una persona y que un usuario externo pueda votar, además de prevenir
+    un ataque de hombre en el medio.
     \item Auditorías aleatorias para detectar fallos o modificaciones del software.
     \item Verificación de que un cliente no acceda habiendo cargado un script malicioso.
     \item Robustez frente a la denegación de servicio.
-    \item Uso de criptografía y funciones resumen para proteger un voto.
+    \item Uso de criptografía robusta para proteger el voto y funciones resumen para ocultar
+    el tamaño del paquete, impidiendo predecir a quién va dirigido el voto.
+    \item Para garantizar el anonimato, asignar a cada votante un identificador con el
+    cual no se le pueda rastrear, siendo este el que esté asignado al voto y el que habrá
+    que verificar si ha votado ya o no.
+    \item Uso de DNSSEC para garantizar la autenticidad del servidor.
+    \item Robustez ante ataques como SQL inyection, XSS y CSRF, validar y sanear toda entrada 
+    de datos del usuario.
 \end{itemize}
 
 
