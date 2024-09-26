@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{subcaption} % Para usar subfiguras, etc.
+\usepackage[spanish]{babel} % Para que la fecha sea en español
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref} % Para crear hipervínculos
+\usepackage{wrapfig} % Texto al lado de una figura
+\usepackage{multirow} % Permite juntar dos celas verticales de una tala
+\usepackage{colortbl} % Permite colorear tablas
+\usepackage[table]{xcolor} % Permite colorear una tabla de forma alterna
+\usepackage{lipsum} % Permite usar /lipsum para crear un texto largo
+\usepackage[left=25mm, right=25mm, top=35mm, bottom=30mm, headheight=35mm]{geometry} % Permite definir los márgenes
+\usepackage{fancyhdr} % Permite usar encabezados
+
+% Definición de colores
+\definecolor{celeste}{RGB}{0, 255, 255}
+\definecolor{gris}{RGB}{222, 222, 222} % Idóneo para alternar en las tablas
+
+\graphicspath{{./images/}}
+
+% Encabezado
+\pagestyle{fancy}
+\lhead{\includegraphics[width=0.12\textwidth]{logo.jpg}}
+\chead{TFG Votaciones}
+\renewcommand{\headrulewidth}{2pt}
+
+\title{Votaciones}
+\author{El trío calavera}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Requisitos funcionales}
+    \subsection{Proceso general de votación}
+    Nuestra página estará orientada a las elecciones de delegado para cada curso y grupo, y a continuación se detallan los pasos a seguir:
+    \begin{enumerate}
+        \item La página principal del programa contendrá un formulario de login o registro para el usuario. Este contará con
+        un segundo factor de autenticación para proporcionar una mayor autenticidad.
+        \item Una vez estás logeado con permisos de creación de elecciones (por ejemplo, los profesores), te saldrá la pestaña de creación
+        de elecciones. Una vez aquí, tendrás que elegir:
+        \begin{itemize}
+            \item Un título (pe: Elección de delegado 1ºA).
+            \item La cantidad de participantes (un número entre 1 y 150).
+            \item Fecha de inicio de la votación.
+            \item Fecha final de la votación.
+            \item Los correos electrónicos de todos aquellos que tengan derecho a votar.
+            \item Una foto (opcional).
+        \end{itemize}
+        La página creará las elecciones y le asignará un código que deberás compartir con los alumnos para que estos puedan acceder ella.
+        \item Los alumnos, tras logearse con permisos de usuario base, podrán buscar la elección con el código proporcionado por el
+        profesor y presentarse como candidato, consultar las distintas candidaturas de otros alumnos, y llevar a cabo su voto.
+        \begin{itemize}
+            \item Presentarse como candidato: para ello tendrán que presionar el botón correspondiente y rellenar un formulario que incluye:
+            \begin{itemize}
+                \item Foto del participante.
+                \item Eslogan de su candidatura.
+                \item Texto en el que incluya sus objetivos, motivaciones, etcétera.
+                \item Vídeo de presentación (opcional).
+            \end{itemize}
+            \item Consultar candidaturas: haciendo click en el botón correspondiente les aparecerá una lista con todos los nombres y
+            fotos de las candidaturas, y presionando en ellas las mostrará en detalle.
+            \item Votar: el alumno podrá, si está dentro de la fecha, elegir a su candidato favorito y votarle. Posteriormente tendrá
+            la posibilidad de descargar un comprobante de su voto.
+        \end{itemize}
+        \item Finalmente todos los alumnos y profesor podrán consultar el ganador de las elecciones una vez acabado el plazo de votación.
+    \end{enumerate}
+    \subsection{Otras características de la aplicación}
+\newpage
+
+\section{Requisitos no funcionales}
+
+\newpage
+
+\end{document}
