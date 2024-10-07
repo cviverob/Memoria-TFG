@@ -10,12 +10,19 @@
 \usepackage{lipsum} % Permite usar /lipsum para crear un texto largo
 \usepackage[left=25mm, right=25mm, top=35mm, bottom=30mm, headheight=35mm]{geometry} % Permite definir los márgenes
 \usepackage{fancyhdr} % Permite usar encabezados
+\usepackage{setspace} % Permite ampliar el espacio entre líneas
+\usepackage{changepage} % Para usar el entorno adjustwidth
+\usepackage{enumitem} % Paquete para personalizar listas
 
 % Definición de colores
 \definecolor{celeste}{RGB}{0, 255, 255}
 \definecolor{gris}{RGB}{222, 222, 222} % Idóneo para alternar en las tablas
 
+% Ruta de las imágenes
 \graphicspath{{./images/}}
+
+% Espacio entre líneas
+\onehalfspacing
 
 % Encabezado
 \pagestyle{fancy}
@@ -33,14 +40,11 @@
 \tableofcontents
 \newpage
 
-\section{Requisitos funcionales}
-    \subsection{Proceso general de votación}
-    Nuestra página estará orientada a las elecciones de delegado para cada curso y grupo, y a continuación se detallan los pasos a seguir:
+\section{Descripción general del sistema}
+    \subsection{Propósitos del sistema}
     \begin{enumerate}
-        \item La página principal del programa contendrá un formulario de login o registro para el usuario. Este contará con
-        un segundo factor de autenticación para proporcionar una mayor autenticidad.
-        \item Una vez estás logeado con permisos de creación de elecciones (por ejemplo, los profesores), te saldrá la pestaña de creación
-        de elecciones. Una vez aquí, tendrás que elegir:
+        \item La página principal del programa contendrá un formulario de login o registro para el usuario. Éste contará con un segundo factor de autenticación para proporcionar una mayor autenticidad.
+        \item Una vez logeado con permisos de creación de elecciones (por ejemplo, los profesores),  saldrá la pestaña de creación de elecciones. Una vez aquí, se tendrá que elegir:
         \begin{itemize}
             \item Un título (pe: Elección de delegado 1ºA).
             \item La cantidad de participantes (un número entre 1 y 150).
@@ -48,30 +52,291 @@
             \item Fecha final de la votación.
             \item Los correos electrónicos de todos aquellos que tengan derecho a votar.
             \item Una foto (opcional).
+            \item Tipo de votación (ej: cada usuario tiene 5 puntos a repartir, o tiene un único voto).
         \end{itemize}
-        La página creará las elecciones y le asignará un código que deberás compartir con los alumnos para que estos puedan acceder ella.
-        \item Los alumnos, tras logearse con permisos de usuario base, podrán buscar la elección con el código proporcionado por el
-        profesor y presentarse como candidato, consultar las distintas candidaturas de otros alumnos, y llevar a cabo su voto.
+        La página creará las elecciones y le asignará un código que se deberá compartir con los alumnos para que puedan acceder ella fácilmente.
+        \item Los alumnos, tras logearse con permisos de usuario base, podrán buscar la elección y presentarse como candidato, consultar las distintas 
+        candidaturas de otros alumnos y llevar a cabo su voto.
         \begin{itemize}
-            \item Presentarse como candidato: para ello tendrán que presionar el botón correspondiente y rellenar un formulario que incluye:
+            \item Presentarse como candidato: el alumno tendrán que presionar el botón correspondiente y rellenar un formulario que incluye:
             \begin{itemize}
-                \item Foto del participante.
                 \item Eslogan de su candidatura.
                 \item Texto en el que incluya sus objetivos, motivaciones, etcétera.
                 \item Vídeo de presentación (opcional).
             \end{itemize}
-            \item Consultar candidaturas: haciendo click en el botón correspondiente les aparecerá una lista con todos los nombres y
-            fotos de las candidaturas, y presionando en ellas las mostrará en detalle.
-            \item Votar: el alumno podrá, si está dentro de la fecha, elegir a su candidato favorito y votarle. Posteriormente tendrá
-            la posibilidad de descargar un comprobante de su voto.
+            \item Consultar candidaturas: haciendo click en el botón correspondiente les aparecerá una lista con todos los nombres y fotos de las candidaturas, y presionando en ellas las mostrará en detalle.
+            \item Votar: el alumno podrá, si está dentro de la fecha, elegir a su candidato favorito y votarle. Posteriormente tendrá la posibilidad de descargar un comprobante de su voto.
         \end{itemize}
         \item Finalmente todos los alumnos y profesor podrán consultar el ganador de las elecciones una vez acabado el plazo de votación.
     \end{enumerate}
-    \subsection{Otras características de la aplicación}
+    Aclaraciones:
+    \begin{itemize}
+        \item No se podrá votar más de una vez, ni con la intención de cambiar el voto.
+        \item El sistema permitirá al usuario escribir reseñas sobre su experiencia con la página.
+        \item La votación será únicamente online, más no en presencial.
+    \end{itemize}
+
 \newpage
+\section{Colección de requisitos del sistema}
+    \subsection{Requisitos funcionales}
+        \subsubsection{Subsistema de Gestión de Usuarios}
+        \begin{enumerate}[label=\textbf{SGU-RF(\arabic*)}, labelwidth=25mm, labelsep=2mm, itemindent=0mm, leftmargin=*, align=parleft] 
+            \item Habrá tres tipos de usuarios, el alumno, el profesor y el administrador, tal que el profesor puede hacer todo lo que un alumno puede, y un administrador todo lo que el profesor pueda.
+            
+            \item El usuario podrá darse de alta en la página web pulsando la opción "Registrarse", teniendo que rellenar un formulario y confirmando su correo electrónico con un código enviado al correo electrónico.
+            \begin{adjustwidth}{15mm}{0mm}
+                \begin{enumerate}[label=\textbf{SGU-RF(2.\arabic*)}]
+                    \item Formulario con los datos del usuario a rellenar.
+                        \begin{itemize}
+                            \item Nombre del usuario: cadena de 30 caracteres como máximo.
+                            \item Apellidos del usuario: cadena de 60 caracteres como máximo (opcional).
+                            \item DNI: cadena de 8 dígitos y una letra.
+                            \item Correo electrónico: cadena de 30 caracteres como máximo finalizada en "@ucm.es".
+                            \item Contraseña de mínimo 8 carácteres y máximo 20, que deberá contener al menos un número, letra minúscula, letrá mayúscula y carácter especial.
+                            \item Confirmación de la contraseña, entre 8 y 20 carácteres
+                            \item Foto: en formato .jpg, .jpeg, o .png, 5 MB máximo (opcional, si no se aplicará una por defecto).
+                        \end{itemize}
+                        Además, también podrá presionar un botón de "Logearse" en caso de que ya tenga una cuenta.
+                    \item El usuario recibirá un correo electrónico con un código de confirmación que deberá introducir en el área habilitada para ello.
+                    \item La cuenta se habrá dado de alta con permisos de alumno.
+                \end{enumerate}
+            \end{adjustwidth}
+        
+            \item El usuario podrá logearse presionando el botón "Logearse". 
+            \begin{adjustwidth}{15mm}{0mm}
+                \begin{enumerate}[label=\textbf{SGU-RF(3.\arabic*)}]
+                    \item Formulario con los datos del usuario a rellenar.
+                        \begin{itemize}
+                            \item Correo electrónico: cadena de 30 caracteres como máximo finalizada en "@ucm.es".
+                            \item Contraseña, entre 8 y 20 carácteres.
+                        \end{itemize}
+                        Además, también podrá presionar un botón de "Registrarse" en caso de que todavía no tenga una cuenta.
+                    \item Si el sistema encuentra la cuenta con esos datos enviará un correo electrónico con un código de confirmación que el usuario tendrá introducir en el área habilitada para ello.
+                \end{enumerate}
+            \end{adjustwidth}
 
-\section{Requisitos no funcionales}
+            \item El usuario podrá hacer click en su perfil para darse de baja, consultar sus datos y modificarlos, mostrándole el formulario de registro (SGU-RF(2.1)) con sus datos actuales predispuestos.
 
-\newpage
+            \item Un usuario con permisos de administrador tendrá acceso a la opción de búsqueda:
+            \begin{adjustwidth}{15mm}{0mm}
+                \begin{enumerate}[label=\textbf{SGU-RF(2.\arabic*)}]
+                    \item Formulario de búsqueda con ningún campo obligatorio:
+                        \begin{itemize}
+                            \item Nombre del usuario: cadena de 30 caracteres como máximo.
+                            \item Apellidos del usuario: cadena de 60 caracteres como máximo.
+                            \item DNI: cadena de 8 dígitos y una letra.
+                            \item Correo electrónico: cadena de 30 caracteres como máximo finalizada en "@ucm.es".
+                            \item Identificador del usuario, código de 8 dígitos.
+                        \end{itemize}
+                    \item Aparecerá una lista con todas las coincidencias, podiendo consultar los perfiles, darlos de baja y cambiarles los permisos.
+                \end{enumerate}
+            \end{adjustwidth}
+        \end{enumerate}
 
+        \subsubsection{Subsistema de Gestión de Elecciones}
+        \begin{enumerate}[label=\textbf{SGE-RF(\arabic*)}, labelwidth=25mm, labelsep=2mm, itemindent=0mm, leftmargin=*, align=parleft] 
+            \item Hay varios tipos de votaciones:
+            \begin{itemize}
+                \item Sistema de representación mayoritaria uninominal: el delegado es el candidato con más votos, y el subdelegado el segundo candidato con más votos.
+                \item Sistema dedos vueltas: si ningún candidato obtiene más del 50\% de los votos, los dos candidatos con más votos se enfrentan entre sí para decidir el delegado y subdelegado.
+                \item Voto preferencial: los votantes ordenan sus candidatos preferidos de tal manera qué, si nadie tiene más del 50\% de los primeros votos, se eliminan los candidatos con menos votos y se redistribuyen hasta que haya un ganador.
+            \end{itemize}
+            \item El usuario logeado con permisos de profesor puede dar de alta unas elecciones
+            \begin{adjustwidth}{15mm}{0mm}
+                \begin{enumerate}[label=\textbf{SGE-RF(2.\arabic*)}]
+                    \item Formulario con los datos a rellenar.
+                        \begin{itemize}
+                            \item Un título, cadena de 30 carácteres como máximo (pe: Elección de delegado 1ºA).
+                            \item La cantidad de participantes, un número entre 1 y 150.
+                            \item Fecha de inicio y fin de la votación, en formato HH:mm - DD/MM/YYYY.
+                            \item Lista de correos electrónicos correspondientes a los votantes de la elección, tiene el tamaño del campo de cantidad de participantes y cada correo son máximo 30 carácteres acabados en "@ucm.es".
+                            \item Tipo de votación, por defecto el sistema de representación mayoritaria uninominal.
+                            \item Foto: en formato .jpg, .jpeg, o .png, 5 MB máximo (opcional).
+                        \end{itemize}
+                    \item El usuario recibirá un código identificador que podrá compartir con los votantes.
+                \end{enumerate}
+            \end{adjustwidth}
+        
+            \item El creador de una votación podrá consultar una lista con sus votaciones actuales y pasadas, podiendo darlas de baja, consultarlas y modificarlas con el mismo formulario de dar de alta (SGE-RF(2.1) con los datos actuales dispuestos.
+
+            \item Un administrador podrá acceder a la opción de búsqueda de una elección
+            \begin{adjustwidth}{15mm}{0mm}
+                \begin{enumerate}[label=\textbf{SGU-RF(4.\arabic*)}]
+                    \item Formulario de búsqueda con ningún campo obligatorio:
+                        \begin{itemize}
+                            \item Un título, cadena de 30 carácteres como máximo (pe: Elección de delegado 1ºA).
+                            \item La cantidad de participantes, un número entre 1 y 150.
+                            \item Fecha de inicio y/o fin de la votación, en formato HH:mm - DD/MM/YYYY.
+                            \item Tipo de votación, por defecto el sistema de representación mayoritaria uninominal.
+                            \item Identificador de la elección, código de 8 dígitos.
+                        \end{itemize}
+                    \item Se le mostrará una lista al administrador con todas las coincidencias, podiendo consultarlas, darlas de baja o modificarlas (exceptuando los votos).
+                \end{enumerate}
+            \end{adjustwidth}
+
+            \item Un votante podrá buscar una elección (SGE-RF(4.1)) y recibir una lista con las coincidencias encontradas en las cuales, además, deberá de estar habilitado para votar.
+
+            \item Al consultar la elección se mostrarán la lista de candidaturas (SGC-RF(4.1)), y presionando el botón de votar se mostrará una pantalla acorde al tipo de elección (SGE-RF(1)). Si solo requiere escoger un candidato, tendrá que seleccionar el que más le guste. Si requiere elegir más de uno, tendrá que ordenar como prefiera la lista. 
+
+            \item El alumno además, una vez efectuado su voto, se le habilitará un botón que al presionar se le descargará un comprobante de su voto.
+
+            \item Una vez finalizado el periodo de voto, el profesor podrá pulsar el botón de recuento de votos, desaparecerá la opción de votar, y en su lugar aparecerán los elegidos a delegado y subdelegado y la opción de descargar la lista con los votos efectuados a cada candidatura. De ninguna manera podrá un usuario de cualquier rango alterar los cálculos.
+        \end{enumerate}
+
+        \subsubsection{Subsistema de Gestión de Candidaturas}
+        \begin{enumerate}[label=\textbf{SGC-RF(\arabic*)}, labelwidth=25mm, labelsep=2mm, itemindent=0mm, leftmargin=*, align=parleft] 
+            \item Las candidaturas estarán asociadas al código de la elección a la que pertenecen.
+
+            \item Un alumno podrá dar de alta su candidatura dentro de la elección en el botón habilitado para ello.
+            \begin{adjustwidth}{15mm}{0mm}
+                \begin{enumerate}[label=\textbf{SGC-RF(2.\arabic*)}]
+                    \item Formulario de alta de candidatura:
+                        \begin{itemize}
+                            \item Eslogan de su candidatura, cadena de 50 carçacteres como máximo.
+                            \item Texto en el que incluya sus objetivos, motivaciones, etcétera, cadena de 250 carçacteres como máximo.
+                            \item Vídeo de presentación, en formato .mp4, 50 MB máximo (opcional).
+                        \end{itemize}
+                    \item El usuario tendrá que confirmar su candidatura, ya que no podrá darse de baja ni modificarla una vez comenzado el periodo de votación.
+                \end{enumerate}
+            \end{adjustwidth}
+
+            \item Un usuario podrá consultar su propia candidatura, y darla de baja (formulario SGC-RF(2.1) con los datos predispuestos) o modificarla si no ha empezado el periodo de votación.
+
+            \item Un usuario cualquiera podrá acceder a la lista de candidaturas.
+            \begin{adjustwidth}{15mm}{0mm}
+                \begin{enumerate}[label=\textbf{SGC-RF(4.\arabic*)}]
+                    \item Se mostrará una lista mostrando para cada candidatura el nombre del participante, su eslogan, y un botón para consultarla.
+                    \item Al presionar el botón de consulta se mostrarán la fotografía del candidato, su nombre completo, eslogan, texto de introducción y opcionalmente el video de presentación.
+                    \item Al candidato le aparecerá un botón para darse de baja o modificar en caso de que no haya iniciado el periodo de votación, y, a un profesor, la opción de dar de baja con las mismas características.
+                \end{enumerate}
+            \end{adjustwidth}
+        \end{enumerate}
+
+    \subsection{Requisitos no Funcionales}
+         \subsubsection{Seguridad}
+        \begin{itemize}
+            \item  \textbf{RNF(1)}  La Base de Datos del sistema debe ser segura donde solamente personal autorizado como administrador o usuarios especiales pueden acceder a ella.
+             \item  \textbf{RNF(2)} El sistema será capaz de responder a fallos sin perder el correcto funcionamiento.
+             \item  \textbf{RNF(3)} El sistema confirmará la identidad de la persona con Autenticidad de Datos. Esto se realizará mediante el doble factor de autenticación (se le mandará un código al correo) y establecimiento de una 
+            clave simétrica con algoritmos híbridos.
+             \item  \textbf{RNF(4)} El sistema cumplirá tanto la privacidad de los datos de los usuarios como de sus votos. Esto
+            se habrá asignando a cada usuario un identificador con una función resumen (SHA-256) con la cual
+            podrá acceder a su voto, pero una persona externa no podrá saber de quién es.
+             \item  \textbf{RNF(5)} Se limitará el número de consultas por IP a 10, para evitar la denegación de servicio.
+             \item  \textbf{RNF(6)} Uso de DNSSEC para garantizar la autenticidad del servidor.
+             \item  \textbf{RNF(7)} Robustez ante ataques como SQL inyection, XSS y CSRF, validar y sanear toda entrada 
+            de datos del usuario.
+             \item  \textbf{RNF(8)} Se utilizará el algortimo criptográfico AES-256.
+        \end{itemize}
+    
+        \subsubsection{Interfaz}
+            \begin{itemize}
+                \item  \textbf{RNF(9)} El sistema tendrá una interfaz de usuario de forma muy intuitiva para facilitar el correcto funcionamiento de las elecciones.
+                \item  \textbf{RNF(11)} El color de la página web será fondo blanco con los detalles como títulos o logotipos en naranja salmón.
+                \item  \textbf{RNF(12)} El sistema tendrá el logo de la universidad en la esquina superior izquierda de la página web y al final de la página.
+                \item \textbf{RNF(13)} La apliación tendrá una interfaz muy intuitiva, con colores claros, mensajes descriptivos e iconos sencillos grandes, para que sea fácil para el usuario realizar su voto. 
+                \item \textbf{RNF(14)} El léxico del sistema en ningún caso será elaborado para evitar el uso de términos complejos que entorpezcan el entendimineto de la lógica del aplicación.
+                \item \textbf{RNF(15)} El sistema dispondrá de una medida del progeso del usuario para conocer el paso en el que se encuentra al realizar el voto.
+                \end{itemize}
+        \subsubsection{Disponibilidad}
+        \begin{itemize}
+        \item El sistema estará disponible para los usuarios en todo momento desde el inicio hasta el final de la votación.
+        \item Para el uso de la apliación web del sistema el usuario necesitará una conexión a Internet.
+        \end{itemize}
+        
+        \subsubsection{Mantenimiento}
+            \begin{itemize}
+                \item El sistema tendrá actividades de mantenimiento programadas de manera semanal, los jueves de 3:00 a 5:00, para el correcto funcionamiento de la aplicación.
+                \end{itemize}
+        \subsubsection{Soporte}
+            \begin{itemize}
+                \item El sistema deberá poder utilizarse en Navegadores web como Google Chrome o Mozilla Firefox. Con versiones, Chrome 91 o posterior y Firefox 95 o posterior, respectivamente.
+                \end{itemize}
+        \subsubsection{Documentación}
+            \begin{itemize}
+                \item El sistema cumplirá toda las normativas y regulaciones tanto de la universidad Complutense de Madrid, como de la Comunidad de Madrid y el Reino de España.
+                \item La aplicación cumplirá la ley de Protección de Datos GDPR(Reglamento General de Protección de Datos).
+                \item El sistema permitirá establecer la página en dos idiomas (Español e Inglés), uno por ser el idioma oficial del país y otro para estudiantes extranjeros.
+                \item El sistema estará documentado y permitirá futuras actualizaciones gracias a un código legible y ordenado.
+            \end{itemize}
+
+        \subsubsection{Rendimiento}
+            \begin{itemize}
+                \item Todas las operaciones del sistema tendrán un tiempo máximo de ejecución de 10 segundos.
+            \end{itemize}
+
+
+    \subsection{Anáslisis de competencias}
+    
+\subsubsection{Helios Voting}
+\begin{itemize}
+    \item \textbf{Descripción}: Helios es un sistema de votación en línea de código abierto diseñado para elecciones no gubernamentales. Se utiliza principalmente en instituciones educativas, sindicatos y asociaciones profesionales.
+    \item \textbf{Fortalezas}:
+    \begin{itemize}
+        \item \textbf{Código abierto}: Permite auditorías externas y ofrece un alto grado de transparencia.
+        \item \textbf{Verificabilidad criptográfica}: Los votantes pueden verificar que su voto fue contabilizado sin comprometer el secreto del voto.
+        \item \textbf{Accesibilidad}: Fácil de usar y permite elecciones remotas.
+    \end{itemize}
+    \item \textbf{Debilidades}:
+    \begin{itemize}
+        \item \textbf{Escalabilidad limitada}: No está optimizado para elecciones a gran escala, como elecciones gubernamentales.
+        \item \textbf{Menor soporte técnico}: Al ser de código abierto, puede depender de la comunidad para actualizaciones y mejoras.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Scytl}
+\begin{itemize}
+    \item \textbf{Descripción}: Scytl es una solución líder en votación electrónica utilizada en elecciones gubernamentales y comerciales. Ofrece una plataforma integral para el voto en línea y por correo.
+    \item \textbf{Fortalezas}:
+    \begin{itemize}
+        \item \textbf{Seguridad avanzada}: Utiliza cifrado extremo a extremo y garantiza la anonimidad del votante.
+        \item \textbf{Escalabilidad}: Adecuada para elecciones gubernamentales a gran escala.
+        \item \textbf{Certificaciones y cumplimiento legal}: Cumple con estándares internacionales de seguridad electoral.
+    \end{itemize}
+    \item \textbf{Debilidades}:
+    \begin{itemize}
+        \item \textbf{Costos elevados}: Las soluciones de Scytl pueden ser costosas para organizaciones más pequeñas.
+        \item \textbf{Propietario}: No es de código abierto, lo que limita la posibilidad de auditoría externa completa.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Simply Voting}
+
+\begin{itemize}
+    \item \textbf{Descripción}: Simply Voting es una plataforma de votación en línea basada en la nube que ofrece servicios tanto para organizaciones pequeñas como grandes. Se centra en ofrecer una interfaz fácil de usar y un sistema seguro.
+\end{itemize}
+\textbf{Fortalezas}:
+    \begin{itemize}
+        \item \textbf{Simplicidad y facilidad de uso}: La interfaz es intuitiva y fácil de configurar, lo que lo hace accesible a organizaciones de cualquier tamaño.
+        \item \textbf{Altamente personalizable}: Permite configurar diversos tipos de elecciones y personalizar la experiencia de votación.
+        \item \textbf{Seguridad y confidencialidad}: Cumple con altos estándares de seguridad.
+    \end{itemize}
+\textbf{Debilidades}:
+    \begin{itemize}
+        \item \textbf{Costo}: Puede ser costoso a largo plazo para grandes volúmenes de votaciones.
+        \item \textbf{Verificabilidad}: Aunque es seguro, no ofrece la misma verificabilidad criptográfica que otros sistemas como Helios.
+    \end{itemize}
+
+\subsubsection{Comparativa:}
+
+\begin{itemize}
+    \item \textbf{Seguridad}: Scytl destaca por su seguridad avanzada y escalabilidad, siendo ideal para elecciones gubernamentales. Helios y Simply Voting son más adecuados para elecciones no gubernamentales, pero Helios sobresale por su verificabilidad criptográfica.
+    \item \textbf{Accesibilidad}: Simply Voting y Helios son fáciles de usar, mientras que Scytl está más enfocado en soluciones complejas y grandes.
+    \item \textbf{Costo}: Helios, al ser de código abierto, es más accesible en términos de coste, mientras que Scytl y Simply Voting pueden ser más costosos debido a la infraestructura comercial.
+\end{itemize}
+ 
+\subsubsection{Ideas obtenidas de otros Trabajos}                
+   Hoy en día con el desarrollo de las elecciones electrónicas, se incrementa la probabilidad de sufrir un ataque indeseado sobre las mismas. Un voto puede ser modificado directamente en el dispositivo del votante por medio de malware, al ser interceptado en la red o por medio de un servidor. Las medidas para comprobar que esto no sucede deben ser óptimas para asegurar que esto es prácticamente inviable y que las elecciones se celebren sin ningún tipo de problema relacionado con hackers.\\
+
+   En terminos de votaciones, diferenciamos dos tipos:
+   \begin{itemize}
+   \item \textbf{Pública}: Como puede ser una votación para la representación govenamental del país. En este tipo, hay una alta problabilidad de amenazas de ataque por intereses de terceros. 
+   \item \textbf{Privada}: Como puede ser la elección del delegado de clase en una universidad o el CEO de una emrpesa. Hay menor riesgo de ataque pero sí es más problable que el ataque sea interno.
+   \end{itemize}
+
+ Ocultar o utilizar metodologías para ofuscar activamente el código no proporciona seguridad adicional y, de hecho, puede hacer que se pierdan los beneficios del paradigma de código abierto. La metodología de criptografia de security through obscurity, no es suficiente pues un algoritmo debe ser seguro aunque se sepa todo salvo su clave.\\
+
+ El blockhain profuce más fiabilidad debido a que es inmutable. Pero el principal problema sigue siendo la parte del sistema antes de que los datos se registren en la blockchain, por lo que los sistemas deben diseñar contramedidas para evitar fallos.\\
+	
+Es probable que en el futuro se desarrollen más ataques a sistemas de votación electrónicos por el aumento del presupuesto de ciberespionaje. Sobre todo por el desarrollo de "Quantum cryptography" que haría inútiles los actuales sistemas criptográficos. 
 \end{document}
